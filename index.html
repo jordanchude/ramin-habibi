@@ -6,10 +6,17 @@
   <meta content="Ramin Habibi offers luxury real estate services and premium property consultations for discerning clients." name="description">
   <meta content="Ramin Habibi - Luxury Real Estate" property="og:title">
   <meta content="Ramin Habibi offers luxury real estate services and premium property consultations for discerning clients." property="og:description">
+  <meta property="og:type" content="website">
+  <!-- Update the og:image and twitter:image URLs with your full domain (e.g., https://www.yourdomain.com/images/94B4B5D4-912A-4BC4-95E3-06D78AEA9FBE.jpg) -->
+  <meta property="og:image" content="images/94B4B5D4-912A-4BC4-95E3-06D78AEA9FBE.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ramin Habibi - Luxury Real Estate Advisor">
   <meta content="Ramin Habibi - Luxury Real Estate" property="twitter:title">
   <meta content="Ramin Habibi offers luxury real estate services and premium property consultations for discerning clients." property="twitter:description">
-  <meta property="og:type" content="website">
   <meta content="summary_large_image" name="twitter:card">
+  <meta name="twitter:image" content="images/94B4B5D4-912A-4BC4-95E3-06D78AEA9FBE.jpg">
+  <meta name="twitter:image:alt" content="Ramin Habibi - Luxury Real Estate Advisor">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -287,6 +294,114 @@ select, input, textarea {
   .listing-cube-price {
     font-size: 16px;
   }
+  
+  .hero-logo-text {
+    font-size: 36px;
+    letter-spacing: 1px;
+  }
+  
+  .hero-subtitle {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+  
+  .hero-image-overlay {
+    padding: 40px 20px;
+    padding-bottom: 60px;
+  }
+  
+  .hero-content {
+    gap: 40px;
+  }
+  
+  .hero-navigation {
+    gap: 12px;
+  }
+  
+  .hero-nav-button {
+    padding: 10px 20px;
+    font-size: 10px;
+  }
+  
+  .listings-view-all-pill {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    grid-row-gap: 40px;
+  }
+  
+  .about-text {
+    font-size: 18px !important;
+  }
+  
+  .section.reduced-padding {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+  
+  .footer {
+    padding-top: 40px !important;
+    padding-bottom: 30px !important;
+  }
+  
+  .footer-link {
+    font-size: 14px !important;
+  }
+  
+  .footer img[alt="Ramin Habibi Logo"] {
+    height: 50px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .hero-logo-text {
+    font-size: 28px;
+  }
+  
+  .hero-subtitle {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+  
+  .hero-image-overlay {
+    padding: 30px 16px;
+    padding-bottom: 50px;
+  }
+  
+  .hero-content {
+    gap: 30px;
+  }
+  
+  .hero-nav-button {
+    padding: 8px 16px;
+    font-size: 9px;
+  }
+  
+  .about-text {
+    font-size: 16px !important;
+  }
+  
+  .section.reduced-padding {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+  
+  .listings-view-all-pill {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+  
+  .footer {
+    padding-top: 32px !important;
+    padding-bottom: 24px !important;
+  }
+  
+  .footer img[alt="Ramin Habibi Logo"] {
+    height: 40px !important;
+  }
 }
 </style>
 </head>
@@ -393,16 +508,16 @@ select, input, textarea {
   <div style="opacity:0" class="load-second">
     <div id="about" class="section reduced-padding">
       <div class="main-container">
-        <div class="w-layout-grid columns" style="grid-template-columns: 1fr 1.2fr;">
+        <div class="w-layout-grid columns about-grid" style="grid-template-columns: 1fr 1.2fr;">
           <div class="container---s">
             <div class="w-layout-grid rows gap-2">
-              <div style="font-size: 20px; line-height: 1.6;">
+              <div class="about-text" style="font-size: 20px; line-height: 1.6;">
                 <p>Ramin Habibi is a top-producing real estate advisor with over half a billion dollars in transactions to date. He launched his career working alongside two of the nation's most successful teams—The Robby Browne Team and The Carrie Chiang Team—where he developed the expertise to manage complex, high-stakes deals in New York City's most competitive market. During his tenure with Carrie Chiang, the team achieved #2 ranking for Medium Size Teams by Sales Volume in New York City and #5 in the Nation by The Wall Street Journal's REAL Trends Top 1,000 Agents, while also ranking #2 Sales Team across all of The Corcoran Group and earning the 2022 President's Council for exceeding $500M in annual sales.</p>
                 <p>Ramin comes from a top-producing real estate family operating in New York City, San Francisco/Silicon Valley, and Coastal Orange County. Together with his brothers, Roh and Obeid, they've built The Habibi Group—a nationwide referral network with over $1B in collective sales. A Bay Area transplant who moved to the Upper East Side in 2018, Ramin embodies the principle of selling what you live. As featured in <em>The Observer</em>, his deep neighborhood knowledge and proven track record make him an invaluable resource for buyers and sellers navigating Manhattan's luxury market.</p>
               </div>
             </div>
           </div>
-          <div>
+          <div class="about-image">
             <img src="images/5C8CE8E1-93EE-4B1D-B9B0-4F72EA823E29.jpg" alt="Ramin Habibi" style="width: 100%; height: auto; object-fit: cover;">
           </div>
         </div>
