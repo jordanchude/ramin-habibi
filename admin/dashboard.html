@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Admin Dashboard - Ramin Habibi</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/ramin-habibi.webflow.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script type="text/javascript">WebFont.load({  google: {    families: ["Cormorant Garamond:regular,italic","EB Garamond:regular,500,italic,500italic","Playfair Display:regular,italic,700,700italic"]  }});</script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      background-color: var(--light);
+      padding: 40px 20px;
+    }
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dashboard-title {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--dark);
+      letter-spacing: 1px;
+    }
+    .header-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .button {
+      border: 1px solid var(--dark);
+      color: var(--dark);
+      text-align: center;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      background-color: transparent;
+      border-radius: 200px;
+      padding: 12px 24px;
+      font-family: Thicccboi, sans-serif;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1.4em;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button:hover {
+      background-color: var(--dark);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+    .button.secondary {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .button.secondary:hover {
+      background-color: var(--accent);
+      color: var(--white);
+    }
+    .post-form {
+      background-color: var(--white);
+      padding: 48px;
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .form-section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 32px;
+      text-transform: uppercase;
+    }
+    .form-field-wrapper {
+      margin-bottom: 32px;
+    }
+    .field-label {
+      display: block;
+      margin-bottom: 12px;
+      font-family: "EB Garamond", serif;
+      font-size: 18px;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    .text-field {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--dark);
+      background-color: transparent;
+      padding: 12px 0;
+      font-family: "EB Garamond", serif;
+      font-size: 18px;
+      color: var(--dark);
+      transition: border-color 0.3s ease;
+    }
+    .text-field:focus {
+      outline: none;
+      border-bottom-color: var(--accent);
+    }
+    .text-field::placeholder {
+      color: var(--dark);
+      opacity: 0.5;
+      font-style: italic;
+    }
+    .text-area {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .post-type-selector {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .post-type-button {
+      padding: 12px 24px;
+      border: 1px solid var(--dark);
+      background-color: transparent;
+      color: var(--dark);
+      font-family: Thicccboi, sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      border-radius: 200px;
+      transition: all 0.3s ease;
+    }
+    .post-type-button.active {
+      background-color: var(--dark);
+      color: var(--white);
+    }
+    .post-type-button:hover {
+      background-color: var(--dark);
+      color: var(--white);
+    }
+    .image-preview {
+      margin-top: 16px;
+      max-width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      display: none;
+    }
+    .image-preview.show {
+      display: block;
+    }
+    .success-message, .error-message {
+      padding: 16px;
+      margin-top: 24px;
+      border-radius: 4px;
+      display: none;
+    }
+    .success-message.show {
+      display: block;
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #4caf50;
+    }
+    .error-message.show {
+      display: block;
+      background-color: #ffebee;
+      color: #c62828;
+      border: 1px solid #f44336;
+    }
+    .posts-list {
+      background-color: var(--white);
+      padding: 48px;
+      border: 1px solid var(--border);
+    }
+    .post-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .post-item:last-child {
+      border-bottom: none;
+    }
+    .post-info {
+      flex: 1;
+    }
+    .post-title {
+      font-family: "EB Garamond", serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .post-meta {
+      font-family: "EB Garamond", serif;
+      font-size: 14px;
+      color: var(--dark);
+      opacity: 0.6;
+      font-style: italic;
+    }
+    .post-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .button-small {
+      padding: 8px 16px;
+      font-size: 10px;
+    }
+    .button-danger {
+      border-color: #d32f2f;
+      color: #d32f2f;
+    }
+    .button-danger:hover {
+      background-color: #d32f2f;
+      color: var(--white);
+    }
+    @media (max-width: 767px) {
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+      .post-form {
+        padding: 32px 24px;
+      }
+      .post-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">Admin Dashboard</h1>
+      <div class="header-actions">
+        <a href="../news-feed.html" class="button secondary" target="_blank">View Feed</a>
+        <button class="button" onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="post-form">
+      <h2 class="form-section-title">Create New Post</h2>
+      <form id="post-form">
+        <div class="post-type-selector">
+          <button type="button" class="post-type-button active" data-type="text">Text</button>
+          <button type="button" class="post-type-button" data-type="image">Image</button>
+          <button type="button" class="post-type-button" data-type="playlist">Playlist</button>
+          <button type="button" class="post-type-button" data-type="link">Link</button>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label for="post-title" class="field-label">Title</label>
+          <input type="text" class="text-field" id="post-title" name="title" placeholder="Post title" required>
+        </div>
+
+        <div class="form-field-wrapper" id="content-wrapper">
+          <label for="post-content" class="field-label">Content</label>
+          <textarea class="text-field text-area" id="post-content" name="content" placeholder="Write your post content..."></textarea>
+        </div>
+
+        <div class="form-field-wrapper" id="image-wrapper" style="display: none;">
+          <label for="post-image" class="field-label">Image</label>
+          <input type="file" class="text-field" id="post-image" name="image" accept="image/*">
+          <img id="image-preview" class="image-preview" alt="Preview">
+        </div>
+
+        <div class="form-field-wrapper" id="link-wrapper" style="display: none;">
+          <label for="post-link" class="field-label">Link URL</label>
+          <input type="url" class="text-field" id="post-link" name="link" placeholder="https://...">
+        </div>
+
+        <div class="form-field-wrapper" id="playlist-wrapper" style="display: none;">
+          <label for="post-playlist" class="field-label">Playlist URL (Spotify, Apple Music, etc.)</label>
+          <input type="url" class="text-field" id="post-playlist" name="playlist" placeholder="https://open.spotify.com/...">
+        </div>
+
+        <button type="submit" class="button">Publish Post</button>
+        <div class="success-message" id="success-message"></div>
+        <div class="error-message" id="error-message"></div>
+      </form>
+    </div>
+
+    <div class="posts-list">
+      <h2 class="form-section-title">Recent Posts</h2>
+      <div id="posts-container">
+        <p style="text-align: center; font-style: italic; color: var(--dark); opacity: 0.6;">Loading posts...</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Load Supabase as ES module
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    window.supabaseLib = { createClient };
+  </script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
+

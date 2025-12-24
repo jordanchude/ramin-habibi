@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>News Feed - Ramin Habibi</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/ramin-habibi.webflow.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script type="text/javascript">WebFont.load({  google: {    families: ["Cormorant Garamond:regular,italic","EB Garamond:regular,500,italic,500italic","Playfair Display:regular,italic,700,700italic"]  }});</script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      background-color: var(--light);
+    }
+    .news-feed-section {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+    .news-feed-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .news-feed-title {
+      font-family: "Playfair Display", serif;
+      font-size: 56px;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    .news-feed-subtitle {
+      font-family: "EB Garamond", serif;
+      font-size: 20px;
+      color: var(--dark);
+      opacity: 0.7;
+      font-style: italic;
+    }
+    .month-section {
+      margin-bottom: 80px;
+    }
+    .month-header {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 48px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .month-header.archived {
+      opacity: 0.5;
+      font-size: 28px;
+    }
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    .post-card {
+      background-color: var(--white);
+      border: 1px solid var(--border);
+      padding: 32px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    .post-card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 24px;
+      display: none;
+    }
+    .post-card-image.show {
+      display: block;
+    }
+    .post-card-title {
+      font-family: "EB Garamond", serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .post-card-content {
+      font-family: "EB Garamond", serif;
+      font-size: 18px;
+      color: var(--dark);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .post-card-link {
+      display: inline-block;
+      color: var(--accent);
+      font-family: "EB Garamond", serif;
+      font-size: 16px;
+      text-decoration: none;
+      font-style: italic;
+      margin-top: 16px;
+      transition: color 0.3s ease;
+    }
+    .post-card-link:hover {
+      color: var(--dark);
+    }
+    .post-card-playlist {
+      margin-top: 16px;
+      padding: 16px;
+      background-color: var(--light);
+      border-left: 3px solid var(--accent);
+    }
+    .post-card-meta {
+      font-family: "EB Garamond", serif;
+      font-size: 14px;
+      color: var(--dark);
+      opacity: 0.5;
+      font-style: italic;
+      margin-top: 16px;
+    }
+    .post-type-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: var(--dark);
+      color: var(--white);
+      font-family: Thicccboi, sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--dark);
+      opacity: 0.5;
+      font-style: italic;
+    }
+    .loading-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--dark);
+      opacity: 0.5;
+    }
+    @media (max-width: 767px) {
+      .news-feed-title {
+        font-size: 36px;
+      }
+      .posts-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .month-header {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="section news-feed-section">
+    <div class="main-container">
+      <div class="news-feed-header">
+        <h1 class="news-feed-title">News Feed</h1>
+        <p class="news-feed-subtitle">Inspiration, playlists, and updates</p>
+      </div>
+
+      <div id="feed-container">
+        <div class="loading-state">Loading feed...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" style="padding-top: 40px; padding-bottom: 30px;">
+    <div class="main-container">
+      <div style="display: flex; flex-direction: column; gap: 16px; align-items: center;">
+        <div style="margin-bottom: 8px;">
+          <img src="Ramin Habibi Logo Files/Svg.svg" alt="Ramin Habibi Logo" style="height: 60px; width: auto; filter: brightness(0) invert(1);">
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;">
+          <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="index.html" class="footer-link" style="font-size: 15px; color: white; text-decoration: none; font-style: italic;">Home</a>
+            <a href="news-feed.html" aria-current="page" class="footer-link w--current" style="font-size: 15px; color: white; text-decoration: none;">News Feed</a>
+            <a href="#about" class="footer-link" style="font-size: 15px; color: white; text-decoration: none;">About</a>
+            <a href="mailto:ramin.habibi@corcoran.com" class="footer-link" style="font-size: 15px; color: white; text-decoration: none;">Contact</a>
+          </div>
+        </div>
+        <div class="small-text" style="text-align: center; font-size: 13px; margin-top: 4px; opacity: 0.7;">Copyright © 2025 Ramin Habibi. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Load Supabase as ES module
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    window.supabaseLib = { createClient };
+  </script>
+  <script src="js/auth.js"></script>
+  <script src="js/news-feed.js"></script>
+</body>
+</html>
+

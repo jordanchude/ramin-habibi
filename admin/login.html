@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Admin Login - Ramin Habibi</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../css/ramin-habibi.webflow.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script type="text/javascript">WebFont.load({  google: {    families: ["Cormorant Garamond:regular,italic","EB Garamond:regular,500,italic,500italic","Playfair Display:regular,italic,700,700italic"]  }});</script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      background-color: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .login-container {
+      width: 100%;
+      max-width: 491px;
+      background-color: var(--white);
+      padding: 60px 40px;
+      border: 1px solid var(--border);
+    }
+    .login-title {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 48px;
+      letter-spacing: 1px;
+    }
+    .form-field-wrapper {
+      margin-bottom: 32px;
+    }
+    .field-label {
+      display: block;
+      margin-bottom: 12px;
+      font-family: "EB Garamond", serif;
+      font-size: 18px;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    .text-field {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--dark);
+      background-color: transparent;
+      padding: 12px 0;
+      font-family: "EB Garamond", serif;
+      font-size: 18px;
+      color: var(--dark);
+      transition: border-color 0.3s ease;
+    }
+    .text-field:focus {
+      outline: none;
+      border-bottom-color: var(--accent);
+    }
+    .text-field::placeholder {
+      color: var(--dark);
+      opacity: 0.5;
+      font-style: italic;
+    }
+    .button {
+      width: 100%;
+      border: 1px solid var(--dark);
+      color: var(--dark);
+      text-align: center;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      background-color: transparent;
+      border-radius: 200px;
+      padding: 14px 24px;
+      font-family: Thicccboi, sans-serif;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1.4em;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .button:hover {
+      background-color: var(--dark);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+    .error-message {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 16px;
+      text-align: center;
+      font-style: italic;
+      display: none;
+    }
+    .error-message.show {
+      display: block;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 32px;
+      color: var(--dark);
+      font-family: "EB Garamond", serif;
+      font-size: 16px;
+      text-decoration: none;
+      font-style: italic;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1 class="login-title">Admin Login</h1>
+    <form id="login-form" class="form">
+      <div class="form-field-wrapper">
+        <label for="email" class="field-label">Email</label>
+        <input type="email" class="text-field" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-field-wrapper">
+        <label for="password" class="field-label">Password</label>
+        <input type="password" class="text-field" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="button">Sign In</button>
+      <div class="error-message" id="error-message"></div>
+    </form>
+    <a href="../index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script type="module">
+    // Load Supabase as ES module
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    window.supabaseLib = { createClient };
+  </script>
+  <script src="../js/auth.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('error-message');
+      
+      errorMessage.classList.remove('show');
+      
+      try {
+        const { data, error } = await window.supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+        
+        if (error) throw error;
+        
+        // Redirect to admin dashboard
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        errorMessage.textContent = error.message || 'Login failed. Please try again.';
+        errorMessage.classList.add('show');
+      }
+    });
+  </script>
+</body>
+</html>
+
